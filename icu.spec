@@ -1,10 +1,10 @@
 Name:      icu
-Version:   63.2
-Release:   3
+Version:   62.1
+Release:   2
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-63-2/icu4c-63_2-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-63-2/icu4c-62_1-src.tgz
 Source1:   icu-config.sh
 
 BuildRequires: gcc gcc-c++ doxygen autoconf python2 icu libicu-devel
@@ -78,9 +78,6 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 )
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
-#Include previous icu version for temporary binary compatibility
-cp -a %{_libdir}/libicu*.so* %{buildroot}%{_libdir}
-
 
 %check
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
@@ -134,17 +131,5 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
-* Wed Sep 25 2019 openEuler Buildteam <buildteam@openeuler.org> - 63.2-3
-- Type:bugfix
-- Id:NA
-- SUG:NA
-- DESC: provides libicu-devel(aarch64)
-
-* Wed Sep 25 2019 openEuler Buildteam <buildteam@openeuler.org> - 63.2-2
-- Type:bugfix
-- Id:NA
-- SUG:NA
-- DESC:add previous icu version for temporary binary compatibility
-
-* Sat Sep 21 2019 openEuler Buildteam <buildteam@openeuler.org> - 63.2-1
+* Fri Nov 1 2019 openEuler Buildteam <buildteam@openeuler.org> - 62.1-2
 - Package init
