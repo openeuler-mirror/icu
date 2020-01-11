@@ -10,11 +10,8 @@ Source1:   icu-config.sh
 BuildRequires: gcc gcc-c++ doxygen autoconf python2 icu libicu-devel
 Requires:      lib%{name} = %{version}-%{release}
 
-Patch4:    gennorm2-man.patch
-Patch5:    icuinfo-man.patch
-%ifarch armv7hl
-Patch100:  armv7hl-disable-tests.patch
-%endif
+Patch1:    gennorm2-man.patch
+Patch2:    icuinfo-man.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -89,9 +86,7 @@ make %{?_smp_mflags} -C source check
 pushd source
 LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
-
 %ldconfig_scriptlets libicu
-
 
 %files
 %defattr(-,root,root)
@@ -131,5 +126,11 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Sat Jan 11 2020 openEuler Buildteam <buildteam@openeuler.org> - 62.1-3
+- Type:bugfix
+- Id:NA
+- SUG:NA
+- DESC:optimization the spec
+
 * Fri Nov 1 2019 openEuler Buildteam <buildteam@openeuler.org> - 62.1-2
 - Package init
