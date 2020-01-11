@@ -86,9 +86,7 @@ make %{?_smp_mflags} -C source check
 pushd source
 LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
-
 %ldconfig_scriptlets libicu
-
 
 %files
 %defattr(-,root,root)
