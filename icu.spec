@@ -1,6 +1,6 @@
 Name:      icu
 Version:   62.1
-Release:   2
+Release:   3
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
@@ -12,6 +12,8 @@ Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
 Patch2:    icuinfo-man.patch
+
+Patch6000: icu-fix-memory-leak.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -126,6 +128,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Tue Mar 10 2020 songnannan <songnannan2@huawei.com> - 62.1-4
+- bugfix memory leak
+
 * Sat Jan 11 2020 openEuler Buildteam <buildteam@openeuler.org> - 62.1-3
 - Type:bugfix
 - Id:NA
