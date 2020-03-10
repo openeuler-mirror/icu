@@ -1,0 +1,26 @@
+From 35a6cf2313357f9b58e60a000ea3f1d22e21dd65 Mon Sep 17 00:00:00 2001
+From: songnannan2 <songnannan2@huawei.com>
+Date: Tue, 18 Feb 2020 23:42:45 +0800
+Subject: [PATCH] b
+
+---
+ icu/source/common/uloc_tag.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/icu/source/common/uloc_tag.cpp b/icu/source/common/uloc_tag.cpp
+index 87b9f63..6948e14 100644
+--- a/source/common/uloc_tag.cpp
++++ b/source/common/uloc_tag.cpp
+@@ -1242,7 +1242,8 @@ _appendLDMLExtensionAsKeywords(const char* ldmlext, ExtensionListEntry** appendT
+             attrBufIdx += (len + 1);
+         } else {
+             *status = U_ILLEGAL_ARGUMENT_ERROR;
+-            goto cleanup;
++            uprv_free(attr);
++	    goto cleanup;
+         }
+ 
+         if (!_addAttributeToList(&attrFirst, attr)) {
+-- 
+2.19.1
+
