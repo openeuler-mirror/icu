@@ -1,10 +1,10 @@
 Name:      icu
-Version:   62.1
-Release:   5
+Version:   67.1
+Release:   1
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-63-2/icu4c-62_1-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
 Source1:   icu-config.sh
 
 BuildRequires: gcc gcc-c++ doxygen autoconf python2 icu libicu-devel
@@ -12,9 +12,6 @@ Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
 Patch2:    icuinfo-man.patch
-
-Patch6000: icu-fix-memory-leak.patch
-Patch6001: CVE-2020-10531.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -129,6 +126,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jul 16 2020 hanhui <hanhui15@huawei.com> - 67.1
+- update to icu4c-67.1
+
 * Fri Mar 20 2020 gulining <gulining1@huawei.com> - 62.1-5
 - fix CVE-2020-10531
 
