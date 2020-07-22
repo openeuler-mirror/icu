@@ -7,7 +7,7 @@ URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
 Source1:   icu-config.sh
 
-BuildRequires: gcc gcc-c++ doxygen autoconf python2 icu libicu-devel
+BuildRequires: gcc gcc-c++ doxygen autoconf python2 libicu
 Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
@@ -24,7 +24,7 @@ libs package for icu
 e
 %package -n libicu-devel
 Summary:    header files for libicu
-Requires:   lib%{name} = %{version}-%{release} pkgconfig
+Requires:   libicu = %{version}-%{release} pkgconfig
 
 %description -n libicu-devel
 header files for libicu
@@ -75,6 +75,7 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 )
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
+cp -a %{_libdir}/libicu*.so.62* %{buildroot}%{_libdir}
 
 %check
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
