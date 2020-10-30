@@ -1,13 +1,13 @@
 Name:      icu
 Version:   67.1
-Release:   1
+Release:   2
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz
 Source1:   icu-config.sh
 
-BuildRequires: gcc gcc-c++ doxygen autoconf python2 libicu
+BuildRequires: gcc gcc-c++ doxygen autoconf python3 libicu
 Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
@@ -31,7 +31,7 @@ header files for libicu
 
 %package_help
 
-%{!?endian: %global endian %(%{__python} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
+%{!?endian: %global endian %(%{__python3} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 %prep
@@ -127,6 +127,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Wed Oct 21 2020 jinzhimin<jinzhimin2@huawei.com> - 67.1-2
+- modify buildrequire to python3
+
 * Thu Jul 16 2020 hanhui <hanhui15@huawei.com> - 67.1
 - update to icu4c-67.1
 
