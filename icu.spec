@@ -1,6 +1,6 @@
 Name:      icu
 Version:   62.1
-Release:   5
+Release:   6
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
@@ -15,6 +15,7 @@ Patch2:    icuinfo-man.patch
 
 Patch6000: icu-fix-memory-leak.patch
 Patch6001: CVE-2020-10531.patch
+Patch6002: backport-CVE-2020-21913.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -129,6 +130,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Oct 22 2021 wangkerong <wangkerong@huawei.com> - 62.1-6
+- fix CVE-2020-21913
+
 * Fri Mar 20 2020 gulining <gulining1@huawei.com> - 62.1-5
 - fix CVE-2020-10531
 
