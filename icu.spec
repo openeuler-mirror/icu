@@ -1,6 +1,6 @@
 Name:      icu
 Version:   69.1
-Release:   1
+Release:   2
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
@@ -75,7 +75,7 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 )
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
-cp -a %{_libdir}/libicu*.so.62* %{buildroot}%{_libdir}
+cp -a %{_libdir}/libicu*.so.67* %{buildroot}%{_libdir}
 
 %check
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
@@ -127,6 +127,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Mon Nov 08 2021 liuyumeng <liuyumeng5@huawei.com> - 69.1-2
+- replace libicu*.so.62* with libicu*.so.67*
+
 * Sun Nov 07 2021 sdlzx <hdu_sdlzx@163.com> - 69.1
 - update to icu4c-69.1
 
