@@ -1,14 +1,13 @@
 Name:      icu
 Version:   69.1
-Release:   2
+Release:   3
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz
 Source1:   icu-config.sh
 
-BuildRequires: gcc gcc-c++ doxygen autoconf python3 libicu
-Requires:      lib%{name} = %{version}-%{release}
+BuildRequires: gcc gcc-c++ doxygen autoconf python3
 
 Patch1:    gennorm2-man.patch
 Patch2:    icuinfo-man.patch
@@ -75,8 +74,6 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 )
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
-cp -a %{_libdir}/libicu*.so.67* %{buildroot}%{_libdir}
-
 %check
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
     exit 1
@@ -127,6 +124,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+- Tue Nov 09 2021 liuyumeng <liuyumeng5@huawei.com> -69.1-3
+- delete redundant .so files
+
 * Mon Nov 08 2021 liuyumeng <liuyumeng5@huawei.com> - 69.1-2
 - replace libicu*.so.62* with libicu*.so.67*
 
