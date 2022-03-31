@@ -1,17 +1,21 @@
 Name:      icu
 Version:   69.1
-Release:   4
+Release:   3
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz
 Source1:   icu-config.sh
 
-BuildRequires: gcc gcc-c++ doxygen autoconf python3 libicu
+BuildRequires: gcc gcc-c++ doxygen autoconf python3
 Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
 Patch2:    icuinfo-man.patch
+Patch3:    fix-ub-units.patch
+%ifarch riscv64
+Patch4:    fix-riscv-test-suite.patch
+%endif
 
 %description
 Tools and utilities for developing with icu.
@@ -21,7 +25,7 @@ Summary:   libs package for icu
 
 %description -n libicu
 libs package for icu
-e
+
 %package -n libicu-devel
 Summary:    header files for libicu
 Requires:   libicu = %{version}-%{release} pkgconfig
@@ -75,13 +79,11 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 )
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 
-cp -a %{_libdir}/libicu*.so.67* %{buildroot}%{_libdir}
-
 %check
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
     exit 1
 fi
-make %{?_smp_mflags} -C source check
+ICU_DATA="%buildroot/%_datadir/icu/%version" make %{?_smp_mflags} -C source check VERBOSE=1
 
 
 pushd source
@@ -127,14 +129,12 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
-* Wed Nov 10 2021 liuyumeng <liuyumeng5@huawei.com> -69.1-4
-- add libicu*.so.67*
+* Thu Mar 31 2022 misaka00251 <misaka00251@misakanet.cn> - 69.1-5
+- Fix unitUsage test error (patch by Andreas Schwab)
+- Fix RISC-V test suite unstable errors
 
-* Tue Nov 09 2021 liuyumeng <liuyumeng5@huawei.com> -69.1-3
-- delete redundant .so files
-
-* Mon Nov 08 2021 liuyumeng <liuyumeng5@huawei.com> - 69.1-2
-- replace libicu*.so.62* with libicu*.so.67*
+* Thu Jul 16 2020 hanhui <hanhui15@h-partners.com> - 69.1-2
+- delete libicu*.so.67*
 
 * Sun Nov 07 2021 sdlzx <hdu_sdlzx@163.com> - 69.1
 - update to icu4c-69.1

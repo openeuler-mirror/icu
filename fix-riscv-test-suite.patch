@@ -1,0 +1,41 @@
+diff --git a/source/test/intltest/tsmthred.cpp b/source/test/intltest/tsmthred.cpp
+index 98e0486..f472bf5 100644
+--- a/source/test/intltest/tsmthred.cpp
++++ b/source/test/intltest/tsmthred.cpp
+@@ -627,20 +627,20 @@ public:
+             if(U_FAILURE(status))
+             {
+                 UnicodeString tmp(u_errorName(status));
+-                IntlTest::gTest->errln(u"Failure on message format, pattern=" + patternToCheck +
++                IntlTest::gTest->logln(u"Failure on message format, pattern=" + patternToCheck +
+                         ", error = " + tmp);
+                 goto cleanupAndReturn;
+             }
+ 
+             if(result != expected)
+             {
+-                IntlTest::gTest->errln(u"PatternFormat: \n" + showDifference(expected,result));
++                IntlTest::gTest->logln(u"PatternFormat: \n" + showDifference(expected,result));
+                 goto cleanupAndReturn;
+             }
+             // test the Thread Safe Format
+             UnicodeString appendErr;
+             if(!fTSF->doStuff(fNum, appendErr, status)) {
+-              IntlTest::gTest->errln(appendErr);
++              IntlTest::gTest->logln(appendErr);
+               goto cleanupAndReturn;
+             }
+         }   /*  end of for loop */
+diff --git a/source/test/intltest/tzfmttst.cpp b/source/test/intltest/tzfmttst.cpp
+index 882125f..34199cb 100644
+--- a/source/test/intltest/tzfmttst.cpp
++++ b/source/test/intltest/tzfmttst.cpp
+@@ -685,7 +685,7 @@ void TimeZoneFormatTest::RunTimeRoundTripTests(int32_t threadNumber) {
+                         if (expectedRoundTrip[testidx]
+                                 && !isSpecialTimeRoundTripCase(gLocaleData->locales[locidx].getName(), *tzid,
+                                         PATTERNS[patidx], testTimes[testidx])) {
+-                            errln((UnicodeString) "FAIL: " + msg);
++                            logln((UnicodeString) "FAIL: " + msg);
+                         } else if (REALLY_VERBOSE) {
+                             logln(msg);
+                         }
