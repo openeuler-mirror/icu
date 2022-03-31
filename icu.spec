@@ -1,6 +1,6 @@
 Name:      icu
 Version:   69.1
-Release:   2
+Release:   3
 Summary:   International Components for Unicode
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
@@ -12,6 +12,10 @@ Requires:      lib%{name} = %{version}-%{release}
 
 Patch1:    gennorm2-man.patch
 Patch2:    icuinfo-man.patch
+Patch3:    fix-ub-units.patch
+%ifarch riscv64
+Patch4:    fix-riscv-test-suite.patch
+%endif
 
 %description
 Tools and utilities for developing with icu.
@@ -21,7 +25,7 @@ Summary:   libs package for icu
 
 %description -n libicu
 libs package for icu
-e
+
 %package -n libicu-devel
 Summary:    header files for libicu
 Requires:   libicu = %{version}-%{release} pkgconfig
@@ -79,7 +83,7 @@ install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/icu-config
 if grep -q @VERSION@ source/tools/*/*.8 source/tools/*/*.1 source/config/*.1; then
     exit 1
 fi
-make %{?_smp_mflags} -C source check
+ICU_DATA="%buildroot/%_datadir/icu/%version" make %{?_smp_mflags} -C source check VERBOSE=1
 
 
 pushd source
@@ -125,6 +129,10 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Mar 31 2022 misaka00251 <misaka00251@misakanet.cn> - 69.1-5
+- Fix unitUsage test error (patch by Andreas Schwab)
+- Fix RISC-V test suite unstable errors
+
 * Thu Jul 16 2020 hanhui <hanhui15@h-partners.com> - 69.1-2
 - delete libicu*.so.67*
 
